@@ -17,3 +17,9 @@ prices:
 r: 10
 step: 1
 calculate_days: 8
+optimization: none
+
+# Optimizations ways:
+# - similarity
+# - rSimilarity
+# - none

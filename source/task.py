@@ -14,6 +14,7 @@ class Task:
         self.days = tuple(kwargs['days'].values())
         self.prices = kwargs['prices']
         self.task_started_at = datetime.now()
+        self.optimization = kwargs.get('optimization')
 
     def overload(self, count_of_workers: int, result: int, count: int):
         result += count * self.prices['c1']
@@ -74,11 +75,20 @@ class Task:
 
         return methods
 
+    def __is_similar(self, items) -> bool:
+        return len(set(items)) == 1
+
     def __resolve_tries(self, delta: int, methods: list) -> list:
         tries = product(methods, repeat=delta)
         tries = [[y.__name__ for y in x] for x in tries]
         tries = [tuple(sorted(x)) for x in tries]
         tries = list(set(tries))
+        if self.optimization:
+            if self.optimization == 'similarity':
+                tries = [x for x in tries if self.__is_similar(x)]
+            elif self.optimization == 'rSimilarity':
+                tries = [x for x in tries if not self.__is_similar(x)]
+
         tries = [[getattr(self, y) for y in x] for x in tries]
 
         return tries
@@ -110,7 +120,7 @@ class Task:
                         tmp_cow, tmp_res, _ = x(tmp_cow, tmp_res, self.step)
 
                     verbose_view = self.__verbose(item)
-                    tree.create_node(str(f'C:{tmp_cow}|P:{tmp_res}|V:{verbose_view}|N:{day}_{i}|R:{need_workers}'),
+                    tree.create_node(str(f'C:{tmp_cow}|P:{tmp_res}|V:{verbose_view}|N:d{1}_{i}|R:{need_workers}'),
                                      f'{current_day}_{i}',
                                      data={'cnt': tmp_cow, 'price': tmp_res, 'total_price': tmp_res,
                                            'vw': verbose_view}, parent='d0_0')
