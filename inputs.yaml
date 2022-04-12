@@ -1,0 +1,19 @@
+days:
+  d1: 8
+  d2: 11
+  d3: 12
+  d4: 16
+  d5: 7
+  d6: 10
+  d7: 14
+  d8: 7
+
+prices:
+  c1: 30
+  c2: 11
+  c3: 23
+  c4: 5
+
+r: 10
+step: 1
+calculate_days: 8
