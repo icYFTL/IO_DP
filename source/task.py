@@ -71,9 +71,9 @@ class Task:
                 methods.append(self.overload)
             methods.append(self.hire)
         elif count_of_workers > need_workers:
-            if count_of_workers > 0 and (
-                    self.prices['c2'] < (self.prices['c3'] + self.prices['c4'])):  # if c2 have reason
-                methods.append(self.sleep)
+            # if count_of_workers > 0 and (
+            #         self.prices['c2'] < (self.prices['c3'] + self.prices['c4'])):  # if c2 have reason ?
+            methods.append(self.sleep)
             methods.append(self.unhire)
 
         return methods
