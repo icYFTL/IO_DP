@@ -189,7 +189,10 @@ class Task:
         print(f'Min price is: {min_val} | Tag: {f"({node.tag})"} | Name: {min_name} | FullPath={" + ".join(fullpath)}')
         print(f'Work done. Elapsed time: {int((datetime.now() - self.task_started_at).total_seconds())} sec.')
 
-        if yes_no('Save to graphviz?'):
-            tree.to_graphviz('result')
+        try:
+            if yes_no('Save to graphviz?'):
+                tree.to_graphviz('result')
+        except KeyboardInterrupt:
+            pass
 
         # tree.show()
